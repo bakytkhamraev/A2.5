@@ -52,6 +52,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemLong(int position) {
 
+                AlertDialog.Builder alert =new AlertDialog.Builder(getContext());
+
+
+
+
 
             }
         });

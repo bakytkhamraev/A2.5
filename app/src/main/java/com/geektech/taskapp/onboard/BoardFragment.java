@@ -53,20 +53,20 @@ public class BoardFragment extends Fragment {
                 textView.setText("Привет");
                 imageView.setImageResource(R.drawable.image1);
                 button.setVisibility(View.INVISIBLE);
-                view.setBackgroundResource(R.drawable.two_gradient);
+                view.setBackgroundResource(R.drawable.gradiend1);
                 break;
             case 1:
                 textView.setText("Как дела?");
                 imageView.setImageResource(R.drawable.image2);
                 button.setVisibility(View.INVISIBLE);
-                view.setBackgroundResource(R.drawable.one_gradient);
+                view.setBackgroundResource(R.drawable.gradient2);
 
                 break;
             case 2:
                 textView.setText("Че делаешь?");
                 imageView.setImageResource(R.drawable.image3);
                 button.setVisibility(View.VISIBLE);
-                view.setBackgroundResource(R.drawable.three);
+                view.setBackgroundResource(R.drawable.gradient3);
                 break;
         }
 

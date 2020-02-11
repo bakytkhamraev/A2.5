@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.os.Environment;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -147,5 +148,16 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         fragment.getChildFragmentManager().getFragments().get(0)
                 .onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void onClick5(MenuItem item) {
+        SharedPreferences preferences = getSharedPreferences("setting", MODE_PRIVATE);
+        preferences.edit().clear().apply();
+        finish();
+
+
+
+
+
     }
 }
