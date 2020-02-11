@@ -1,8 +1,10 @@
 package com.geektech.taskapp.Room;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.geektech.taskapp.Task;
 
@@ -16,5 +18,16 @@ public interface TaskDao {
 
     @Insert
     void insert(Task task);
+
+    @Delete
+    void delete(Task task);
+
+
+    @Delete
+    void deleteall(List<Task> list);
+    @Update
+    void update(Task task);
+
+
 
 }

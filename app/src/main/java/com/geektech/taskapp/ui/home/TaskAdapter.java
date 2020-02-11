@@ -33,7 +33,12 @@ private OnItemLongListener onItemLongListener;
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_task, parent, false);
+
+
+
         return new ViewHolder(view);
+
+
     }
 
     @Override
@@ -53,6 +58,7 @@ private OnItemLongListener onItemLongListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -83,6 +89,8 @@ private OnItemLongListener onItemLongListener;
                 }
             });
 
+
+
         }
 
         public void bind(Task task) {
@@ -91,5 +99,7 @@ private OnItemLongListener onItemLongListener;
 
             //TODO
         }
+
+
     }
 }

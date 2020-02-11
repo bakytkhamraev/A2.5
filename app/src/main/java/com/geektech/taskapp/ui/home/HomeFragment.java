@@ -1,7 +1,6 @@
 package com.geektech.taskapp.ui.home;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,12 +34,17 @@ public class HomeFragment extends Fragment {
     private TaskAdapter adapter;
     private List<Task> list;
 
+
+    private Task task;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
 
         list = App.getDatabase().taskDao().getAll();
+
+
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
@@ -48,18 +53,8 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        adapter.setOnItemLongListener(new OnItemLongListener() {
-            @Override
-            public void onItemLong(int position) {
-
-                AlertDialog.Builder alert =new AlertDialog.Builder(getContext());
 
 
-
-
-
-            }
-        });
 
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -71,9 +66,44 @@ public class HomeFragment extends Fragment {
         });
 
 
+        adapter.setOnItemLongListener(new OnItemLongListener() {
+            @Override
+            public void onItemLong( final int position) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
+                dialog.setTitle("Вы хотите удалить запись?")
+                        .setMessage("Удалить задачу")
+                        .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialoginterface, int which) {
+                                dialoginterface.cancel();
+                            }
+                        }).setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialoginterface, int which) {
+                        App.getDatabase().taskDao().delete(list.get(position));
+
+                        adapter.notifyDataSetChanged();
+                    }
+                }).show();
+
+
+            }
+        });
+
         return root;
 
 
+
+
+
+
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //adapter.notifyDataSetChanged();
     }
 
     @Override
