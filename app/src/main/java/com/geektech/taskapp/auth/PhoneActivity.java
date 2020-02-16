@@ -31,6 +31,7 @@ public class PhoneActivity extends AppCompatActivity {
     private EditText editCode;
 
     private String verification;
+    private String a;
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks;
 
