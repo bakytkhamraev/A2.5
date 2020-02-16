@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +28,7 @@ import com.geektech.taskapp.OnItemLongListener;
 import com.geektech.taskapp.R;
 import com.geektech.taskapp.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -41,8 +44,16 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        list=new ArrayList<>();
+        App.getDatabase().taskDao().getAllLive().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(List<Task> tasks) {
+                list.clear();
+                list.addAll(tasks);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
-        list = App.getDatabase().taskDao().getAll();
 
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
@@ -51,6 +62,10 @@ public class HomeFragment extends Fragment {
                 DividerItemDecoration.VERTICAL));
         adapter = new TaskAdapter(list);
         recyclerView.setAdapter(adapter);
+
+
+
+
 
 
 
@@ -79,8 +94,6 @@ public class HomeFragment extends Fragment {
                         }).setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialoginterface, int which) {
                         App.getDatabase().taskDao().delete(list.get(position));
-
-                        adapter.notifyDataSetChanged();
                     }
                 }).show();
 

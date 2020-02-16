@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class FormActivity extends AppCompatActivity {
     private EditText editTitle;
     private EditText editDesc;
+    Button button, buttonTwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,13 @@ public class FormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form);
         editTitle = findViewById(R.id.editTitle);
         editDesc = findViewById(R.id.editDesc);
+        button=findViewById(R.id.oneBtn);
+        buttonTwo=findViewById(R.id.TwoBtn);
+
+        button.setEnabled(false);
+        buttonTwo.setEnabled(false);
     }
+
 
     public void onClick(View view) {
         String title = editTitle.getText().toString().trim();
@@ -39,4 +46,5 @@ public class FormActivity extends AppCompatActivity {
             finish();
         }
     }
+
 }

@@ -10,6 +10,7 @@
 
 
     <Button
+
         android:id="@+id/oneBtn"
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -35,6 +36,7 @@
 
 
     <Button
+        android:id="@+id/TwoBtn"
         android:layout_width="350dp"
         android:layout_height="500dp"
         android:layout_marginLeft="10dp"
@@ -85,7 +87,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="650dp"
         android:background="@drawable/bg_button"
         android:onClick="onClick"
         android:text="Save"
