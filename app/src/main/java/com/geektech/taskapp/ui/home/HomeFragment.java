@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.geektech.taskapp.App;
+import com.geektech.taskapp.FormActivity;
 import com.geektech.taskapp.MainActivity;
 import com.geektech.taskapp.OnItemClickListener;
 import com.geektech.taskapp.OnItemLongListener;
@@ -44,7 +45,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        list=new ArrayList<>();
+        list = new ArrayList<>();
         App.getDatabase().taskDao().getAllLive().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
@@ -55,7 +56,7 @@ public class HomeFragment extends Fragment {
         });
 
 
-
+        list = App.getDatabase().taskDao().getAll();
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
@@ -64,26 +65,21 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-
-
-
-
-
-
-
-
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onOItemClick(int position) {
-                Toast.makeText(getContext(), "pos=" + list.get(position)
-                        .getTitle(), Toast.LENGTH_SHORT).show();
+                Task task = list.get(position);
+
+                Intent intent = new Intent(getContext(), FormActivity.class);
+                intent.putExtra("task", task);
+                startActivity(intent);
             }
         });
 
 
         adapter.setOnItemLongListener(new OnItemLongListener() {
             @Override
-            public void onItemLong( final int position) {
+            public void onItemLong(final int position) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(requireContext());
                 dialog.setTitle("Вы хотите удалить запись?")
                         .setMessage("Удалить задачу")
@@ -102,13 +98,6 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
-
-
-
-
-
-
-
 
 
     }

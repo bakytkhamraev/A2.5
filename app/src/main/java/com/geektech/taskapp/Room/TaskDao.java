@@ -14,13 +14,12 @@ import java.util.List;
 @Dao
 
 public interface TaskDao {
-@Query("SELECT*FROM task")
-    List<Task>getAll();
+    @Query("SELECT*FROM task")
+    List<Task> getAll();
 
 
     @Query("SELECT*FROM task")
     LiveData<List<Task>> getAllLive();
-
 
 
     @Insert
@@ -30,11 +29,8 @@ public interface TaskDao {
     void delete(Task task);
 
 
-    @Delete
-    void deleteall(List<Task> list);
     @Update
     void update(Task task);
-
 
 
 }
