@@ -1,5 +1,6 @@
 package com.geektech.taskapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,11 +11,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class FormActivity extends AppCompatActivity {
     private EditText editTitle;
     private EditText editDesc;
     Task task;
     Button button, buttonTwo;
+
+    FirebaseFirestore fb=FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +50,25 @@ public class FormActivity extends AppCompatActivity {
         String title = editTitle.getText().toString().trim();
         String desc = editDesc.getText().toString().trim();
 
-        if (title.isEmpty() || desc.isEmpty())
+        Map<String,Object>map=new HashMap<>();
+        map.put("title","Hello");
+        map.put("title","gmail");
+        FirebaseFirestore.getInstance().collection("title").add(map).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull com.google.android.gms.tasks.Task<DocumentReference> task) {
+
+                if (task.isSuccessful()){
+                    Toaster.show("Успешно");
+                } else {
+                    Toaster.show("лол не успешно");
+                }
+
+            }
+        });
+
+
+
+       if (title.isEmpty() || desc.isEmpty())
         {
             Toaster.show("Введите данные!!!");
         }

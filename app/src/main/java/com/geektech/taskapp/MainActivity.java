@@ -43,7 +43,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-   //  NavigationView navigationViewB;
+    //  NavigationView navigationViewB;
 
 
     @Override
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (FirebaseAuth.getInstance().getCurrentUser()==null){
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(MainActivity.this, PhoneActivity.class));
             finish();
             return;
@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-
-
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -91,11 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
 
 
         View header = navigationView.getHeaderView(0);
@@ -107,28 +103,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         initfile();
     }
 
+
     @AfterPermissionGranted(200)
-    private void initfile(){
+    private void initfile() {
         String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        if (EasyPermissions.hasPermissions(this, perms)){
+        if (EasyPermissions.hasPermissions(this, perms)) {
             File folder = new File(Environment.getExternalStorageDirectory(), "MyTaskApp");
             folder.mkdirs();
             File file = new File(folder, "note.txt");
             try {
                 file.createNewFile();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             EasyPermissions.requestPermissions(this, "Разрешите", 200, perms);
         }
-
     }
 
     @Override
@@ -164,9 +157,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("setting", MODE_PRIVATE);
         preferences.edit().clear().apply();
         finish();
-
-
-
 
 
     }
